@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/loadPost.css">
+    <script src="https://kit.fontawesome.com/59843e7d25.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="none">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div id="carouselExampleIndicators" class="carousel slide">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="carouselImg" src="../images/img1.jpg" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="carouselImg" src="../images/img2.jpg" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="carouselImg" src="../images/img3.jpg" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <div class="explore_feed_contents">
+                        <header class="explore_feed_head">
+                            <div class="explore_feed_head_box">
+
+                                <div class="explore_feed_head_imgbox">
+                                    <a href="#" class="explore_feed_head_img">
+                                        <img src="../images/img2.jpg" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="explore_feed_infobox">
+                                    <div class="explore_feed_infobox1">
+                                        아이디
+                                    </div>
+                                    <div class="explore_feed_infobox2">
+                                        닉네임
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="explore_feed_head_ellipsis">
+                                <i class="fa-solid fa-ellipsis fa-lg"></i>
+                            </div>
+                        </header>
+
+                        <div class="explore_feed_inside">
+                            <div class="explore_feed_scrolls">
+                                여기에 div 를 추가하세요. 동적으로 길면 알아서 줄바꿈합니다.
+                            </div>
+
+                            <div class="explore_feed_footer">
+                                <div class="home_feed_footer">
+                                    <div class="feed_footer_cont">
+                                        <div class="feed_footer_actionBox">
+                                            <div class="feed_footer_interactive">
+                                                <div class="feed_footer_likeBox def_size">
+                                                    <span class="like-icon">
+                                                       <i th:if="${post.likeYN == 1}" class="fa-solid fa-heart" th:data-post-id="${post.id}"></i>
+                                                       <i th:unless="${post.likeYN == 1}" class="fa-regular fa-heart" th:data-post-id="${post.id}"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="feed_footer_commentBox def_size">
+                                                    <span><i class="fa-regular fa-comment fa-lg" th:data-post-id = "${post.id}"></i></span>
+                                                </div>
+                                                <div class="feed_footer_messageBox def_size">
+                                                    <span><i class="fa-regular fa-paper-plane fa-lg" th:data-post-id = "${post.id}"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="feed_footer_bookmarkBox">
+                                                <div class="feed_footer_bookmark def_size">
+                                                    <span><i th:class="${post.bookmarkYN > 0} ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" th:data-post-id = "${post.id}"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="feed_footer_likeNumCont">
+                                            <div class="feed_footer_likeNumBox">
+                                                    <span class="feed_footer_likeNumText">
+                                                       좋아요
+                                                       <span class="feed_footer_likeNum" th:id="'likeCount_' + ${post.id}" th:text="${#lists.size(post.likes)}"></span>만개
+                                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="feed_footer_ownerCommentBox">
+                                            <div class="feed_footer_ownerNameBox">
+                                                    <span class="feed_footer_ownerName"  th:text="${post.userName}">
+                                                    </span>
+                                            </div>
+                                            <div class="feed_footer_ownerTextBox">
+                                                    <span class="feed_footer_ownerText"  th:text="${post.content}">
+                                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="feed_footer_commentNumCont">
+                                            <div class="feed_footer_commentNumBox">
+                                                    <span class="feed_footer_commentText">
+                                                       댓글
+                                                       <span class="feed_footer_commentNum" th:text="${post.commentSize}"></span>개 모두 보기
+                                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="feed_footer_inputCont">
+                                            <form th:id="${post.id}">
+                                                <div class="feed_footer_inputBox">
+                                                    <div class="feed_footer_postCommentBox">
+                                                        <input type="text" class="feed_footer_postComment" placeholder="댓글 달기..">
+                                                        <input type="hidden" id = "postId" th:value="${post.id}">
+                                                    </div>
+                                                    <div class="feed_footer_emoteButton">
+                                                        <span><i class="fa-regular fa-face-smile"></i></span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

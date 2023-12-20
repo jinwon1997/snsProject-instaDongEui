@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tq</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/home2.css">
+    <script src="https://kit.fontawesome.com/59843e7d25.js" crossorigin="anonymous"></script>
+    <style>
+
+        .explore_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            position: relative;
+        }
+
+        .explore_image_grid {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 930px;
+        }
+
+        .fa-copy {
+            z-index: 1;
+            position: absolute;
+            color: whitesmoke;
+            left: 260px;
+            padding-top: 10px;
+            opacity: 0.8;
+        }
+
+        .explore_image {
+            width: auto;
+            height: auto;
+            position: relative;
+            margin: 3px;
+            border-radius: 1%;
+        }
+
+        .explore_thumbnail {
+            height: 300px;
+            width: 300px;
+            object-fit: cover;
+            background-color: black;
+            border-radius: 1%;
+        }
+
+        .explore_hover {
+            z-index: 1;
+            color: white;
+            position: absolute;
+            width: 30%;
+            top: 40%;
+            left: 40%;
+            display: flex;
+            justify-content: space-between;
+            visibility: hidden;
+        }
+
+        .explore_hover * {
+            display: flex;
+            flex-direction: row;
+        }
+        #side_nav{
+            position: absolute;
+            left: 0;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+            $(".explore_image").hover(function () {
+                $(this).css("background-color", "black");
+                $(this).find(".explore_thumbnail").css("opacity", 0.55);
+                $(this).find(".explore_hover").css("visibility", "visible")
+            }, function () {
+                $(this).css("background-color", "");
+                $(this).find(".explore_hover").css("visibility", "hidden")
+                $(this).find(".explore_thumbnail").css("opacity", 1);
+            })
+        })
+    </script>
+</head>
+
+<body>
+
+<div class="explore_container">
+    <div id="side_nav">
+        <div class="nav_load"></div>
+    </div>
+    <div class="explore_image_grid">
+        <div th:each="post : ${posts}" class="explore_image">
+            <input class="explore_image_id" type="hidden" th:value="${post.id}">
+            <img class="explore_thumbnail" th:src="${#lists.size(post.images) > 0 ? post.images[0].url : '/img/logo.png'}" onerror="this.src='/img/logo.png'">
+            <div class="explore_hover">
+                <div class="explore_hover_comments">
+                    <i th:text="${post.getCommentSize()} > 0 ? ${post.getCommentSize()} : 0" class="fa-regular fa-comment" style="font-size: 20px"></i>
+                </div>
+                <div class="explore_hover_likes">
+                    <i th:if="${post.likeYN == 1}"
+                       th:text="${#lists.size(post.getLikes()) > 0 ? #lists.size(post.getLikes()) : 0}"
+                       th:class="${post.likeYN == 1} ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
+                       style="font-size: 20px; color: red"
+                       th:data-post-id="${post.id}"></i>
+
+                    <i th:if="${post.likeYN != 1}"
+                       th:text="${#lists.size(post.getLikes()) > 0 ? #lists.size(post.getLikes()) : 0}"
+                       th:class="${post.likeYN != 1} ? 'fa-regular fa-heart' : ''"
+                       style="font-size: 20px"
+                       th:data-post-id="${post.id}"></i>
+                </div>
+            </div>
+            <i th:if="${#lists.size(post.images)>1}" class="fa-solid fa-copy fa-2x fa-icon"></i>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/explore.js"></script>
+</html>

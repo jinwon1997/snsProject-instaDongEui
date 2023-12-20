@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="https://kit.fontawesome.com/59843e7d25.js" crossorigin="anonymous"></script>
+
+
+    <style>
+        *,
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        #side_nav{
+            position: absolute;
+            left: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .emo-container {
+            width: 600px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .emo-thumnail {
+            width: 130px;
+            height: 130px;
+        }
+
+        .emo-thumnail img {
+            width: 100%;
+            height: 100%;;
+            object-fit: cover;
+        }
+
+        .emo-content {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .emo-name,
+        .emo-price {
+            text-align: center;
+            width: 400px;
+            margin-top: 10px;
+        }
+
+        .emoticon {
+            margin-top: 10px;
+            margin-left: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 400px;
+            font-size: 12px;
+            /* Adjust the font size as needed */
+        }
+
+        .button {
+            display: flex;
+            justify-content: space-evenly;
+
+        }
+    </style>
+</head>
+
+<body>
+<div id="side_nav">
+    <div class="nav_load"></div>
+</div>
+<div class="container">
+    <div class="emo-container">
+        <div class="emo-thumnail">
+            <img src="/img/img5.png" alt="">
+            <div class="button">
+                <input type="button" th:value="${#strings.contains(already.emoticon, '1')} ? '구매완료' : '구매'"  class="buy-emo" id="purchaseButton" th:attr="disabled=${#strings.contains(already.emoticon, '1')} ? 'disabled' : null">
+            </div>
+        </div>
+        <div class="emo-content">
+            <div class="emo-name">인스타 이모티콘</div>
+            <div class="emo-price">100원</div>
+            <div class="emoticon" id="11">
+                😂 😅 🤣 😥 😆 😍 😱 😴 😵 😷 🤥 😝 🤫 🤭 ⌚ ⏰ ⏱ ⚽ ⚾
+                🏐 🏀 🏈 🏓 ☝ ✌ ✋ 👆 👇 👈 👉 👍 👎 👌 🤟 🌭 🍔 🌮 🍕
+                🍞 🍩 🥞 🥣 ☕ 🥛 🌷 🌻 🌼 🌽 🍅 🍆 🍇 🍉 🍊 🍍 🍎 🍒 🍓
+                🥝 🌂 🎉 🎨 💊 📗 📘 📕 🔊 🎸 🎹 🎺 🎻 🐤 🦅 🦉 🐵 🐶 🐹
+                🦁 👀 👂 👃 🙏 🙅 🙆 🤦 👄 💋 👅 🧡 💖 💘 💕 💏 💑 🚁 🚊 🚑
+                🚕 🚚 🚛
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<script>
+
+    var IMP = window.IMP;
+    var userData = null;
+    IMP.init('imp80283140');
+
+    $(document).ready(function () {
+        requestUser();
+    })
+
+    function requestUser() {
+        $.ajax({
+            url: "/payments/getUserInfo",
+            type: "POST",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                userData = data;
+            }
+        })
+    }
+    $('.buy-emo').click( function () {
+        console.log("클릭됨");
+        requestPay();
+    })
+    function requestPay() {
+        console.log('시작');
+        IMP.request_pay(
+            {
+                pg: "html5_inicis",
+                pay_method: "card",
+                merchant_uid: "6",
+                name: "이모지팩",
+                amount: 100,
+                buyer_email: userData.buyer_email,
+                buyer_name: userData.buyer_name,
+                buyer_tel: userData.buyer_tel,
+                buyer_addr: "",
+                buyer_postcode: "",
+            },
+            function (rsp) {
+                if (rsp.success) {
+                    // callback
+                    alert("결제가 완료되었습니다. 결제 고유 ID: " + rsp.imp_uid);
+                    console.log("결제고유번호: " + rsp.imp_uid);
+
+                    $.ajax({
+                        url: "/payments/paymentProc",
+                        type: 'POST',
+                        data: {
+                            impUid: rsp.imp_uid,
+                            emoticonId: rsp.merchant_uid
+                        }, error: function (xhr) {
+                            console.log(xhr);
+                        }
+                    }).done(function (data) {
+                        console.log("서버로부터 수신받은 값: " + data);
+                        location.replace("/payments/");
+                    })
+                }
+            })
+    }
+
+    // function requestPay() {
+    //     IMP.request_pay(
+    //         {
+    //             pg: "html5_inicis",
+    //             pay_method: "card",
+    //             merchant_uid: "57008833-33004",
+    //             name: "당근 10kg",
+    //             amount: 1004,
+    //             buyer_email: "Iamport@chai.finance",
+    //             buyer_name: "포트원 기술지원팀",
+    //             buyer_tel: "010-1234-5678",
+    //             buyer_addr: "서울특별시 강남구 삼성동",
+    //             buyer_postcode: "123-456",
+    //         },
+    //         function (rsp) {
+    //             if (rsp.success) {
+    //
+    // }
+    // // POST 요청을 받는 /payments/complete
+    // $("form").submit(async function (event) {
+    //     event.preventDefault();
+    //     const PORTONE_API_KEY = "2780766266443383";
+    //     const secret = "hqmungUW3ne2IVibauftMw5eNveufNoBiypcyuCcmIDwA9r2W45x2yG9I8zu0pArS7lNQQTY2FUdM3Kk";
+    //
+    //     try {
+    //         // 요청의 body로 SDK의 응답 중 txId와 paymentId가 오기를 기대합니다.
+    //         const {txId, paymentId} = $(this).serializeObject(); // jQuery serializeObject 함수 사용
+    //
+    //         // 1. 포트원 API를 사용하기 위해 액세스 토큰을 발급받습니다.
+    //         const signinResponse = await $.ajax({
+    //             url: "https://api.iamport.kr/users/getToken",
+    //             type: "POST",
+    //             contentType: "application/json",
+    //             data: JSON.stringify({
+    //                 imp_key: PORTONE_API_KEY,
+    //                 imp_secret: secret
+    //             }),
+    //         });
+    //         const {access_token} = signinResponse;
+    //
+    //         // 2. 포트원 결제내역 단건조회 API 호출
+    //         const paymentResponse = await $.ajax({
+    //             url: `https://api.iamport.kr/payments/${paymentId}`,
+    //             type: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": "Bearer " + access_token
+    //             },
+    //         });
+    //         const {payment: {id, transactions}} = paymentResponse;
+    //         // 대표 트랜잭션(승인된 트랜잭션)을 선택합니다.
+    //         const transaction = transactions.find(tx => tx.is_primary === true);
+    //
+    //         // 3. 가맹점 내부 주문 데이터의 가격과 실제 지불된 금액을 비교합니다.
+    //         const order = await OrderService.findById(id);
+    //         if (order.amount === transaction.amount.total) {
+    //             switch (status) {
+    //                 case "VIRTUAL_ACCOUNT_ISSUED": {
+    //                     const {virtual_account} = transaction.payment_method_detail;
+    //                     // 가상 계좌가 발급된 상태입니다.
+    //                     // 계좌 정보(virtual_account)를 이용해 원하는 로직을 구성하세요.
+    //                     break;
+    //                 }
+    //                 case "PAID": {
+    //                     // 모든 금액을 지불했습니다! 완료 시 원하는 로직을 구성하세요.
+    //                     break;
+    //                 }
+    //             }
+    //         } else {
+    //             // 결제 금액이 불일치하여 위/변조 시도가 의심됩니다.
+    //         }
+    //     } catch (e) {
+    //         // 결제 검증에 실패했습니다.
+    //         // 에러 처리 로직 추가
+    //         console.error(e);
+    //     }
+    // });
+
+
+</script>
+<script src="/js/home.js"></script>
+
+</html>

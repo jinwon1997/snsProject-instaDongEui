@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.snsProject.model.DAO.ShopDAO">
+    <select id="getItemList" resultType="hashmap">
+        <![CDATA[
+            select * from test1.emoticon;
+         ]]>
+    </select>
+
+    <insert id="insertImpUid">
+        <![CDATA[
+             insert into test1.payment (emoticon_id, member_id, imp_uid) values (${emoticonId}, ${memberId}, "${impUid}");
+        ]]>
+    </insert>
+
+</mapper>

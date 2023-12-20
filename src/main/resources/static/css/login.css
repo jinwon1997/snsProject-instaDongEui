@@ -1,0 +1,199 @@
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+a {
+    text-decoration: none;
+}
+#login_wrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+#login_cont{
+    min-width: 1024px;
+}
+#login_box {
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* fade in-out 이미지 관련 시작 */
+.fade_box {
+    width: 465px;
+    height: 635px;
+    background-image: url("/img/home-phones.png");
+}
+.fade_img_list{
+    width: 100%;
+    margin-top: 26px;
+    position: relative;
+}
+.fade_img{
+    
+    /* fade in-out 효과를 위한 고정값 위치 */
+    /* .fade_img_list 의 margin-top: 26px도 고정값 필요 */
+    
+    left: 156px;
+    position: absolute;
+    opacity: 0;
+}
+/* fade in-out 이미지 관련 끝 */
+
+.sign_text{
+    font-size: 14px;
+    color: darkgray;
+    font-weight: bold;
+}
+
+/* 로그인 입력 관련 시작 */
+.input_form {
+    width: 330px;
+    max-width: 330px;
+    height: auto;
+    margin: 0 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: center;
+}
+
+.input_box img {
+    margin: 0 auto;
+    display: block;
+}
+
+.input_box form {
+    margin-top: 1.5em;
+}
+
+.input_box input {
+    width: 80%;
+    height: 2em;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+    margin: 0.45em 0;
+    padding: 0.5em;
+}
+
+.input_box input::placeholder {
+    color: #000;
+    font-size: 12px;
+    opacity: 0.4;
+}
+
+.input_box button {
+    width: 85%;
+    height: 35px;
+    background-color: #00B9FF;
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.input_box button:hover{
+    cursor: pointer;
+}
+.hrTag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hrTag hr {
+    flex-grow: 1;
+    height: 0.5px;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.hrTag p {
+    color: #999;
+    font-size: 12px;
+}
+
+/* Log in Facebook account and logo style */
+
+.fcbkImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5em;
+}
+
+.fcbkImg a {
+    display: flex;
+    align-items: center;
+}
+
+.fcbkImg img {
+    margin-right: 0.25em;
+}
+
+.fcbkImg h4 {
+    color: #020e7a;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.forgotPasswd a {
+    text-align: center;
+    font-size: 12px;
+    color: #020e7a;
+}
+
+.sign_cont div{
+    width: 340px;
+    padding: 11px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 14px;
+    margin: 20px auto;
+}
+
+.sign_cont p {
+    text-align: center;
+}
+
+.sign_cont a {
+    color: #007e73;
+}
+.pwd_img{
+    margin: 10px 0;
+}
+.find_pwd_img{
+    display: inline-block;
+    background-image: url("/img/TJztmXpWTmS.png");
+    background-repeat: no-repeat;
+    background-position: -130px 0;
+    height: 96px;
+    width: 96px;
+}
+.pwd_info_fir{
+    margin: 0 20px 10px;
+    font-weight: bold;
+}
+.pwd_info_sec{
+    width: 80%;
+    font-size: 14px;
+    margin: 0 auto 10px;
+    color: gray;
+}
+#signup_sec{
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+.signup_box{
+    margin: 5px 0 20px;
+}

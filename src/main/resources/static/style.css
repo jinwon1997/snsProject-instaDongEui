@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    justify-content: center;
+    align-content: space-between;
+}
+.box {
+    width: calc(33.33% - 20px);
+    height: 300px;
+    margin: 10px;
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}

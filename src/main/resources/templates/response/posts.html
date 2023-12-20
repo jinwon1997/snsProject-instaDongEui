@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+!-- 파일 목록 -->
+<ul id="hiList">
+    <li>
+
+    </li>
+
+    <!-- viewmore 클릭시 목록 뿌려주는 부분 -->
+    <th:block th:if="${memberList != null}" >
+        <li id="moreList" th:fragment="moreList">
+
+        </li>
+    </th:block>
+</ul>
+
+<!-- 파일 목록 -->
+
+
+<!-- viewmore -->
+<div class="btnWrap">
+    <a href="javascript:void(0);" class="btn more" id="hi">View more</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+.footer_cont{
+    width: 100%;
+    padding: 0 30px;
+}
+.footer_box{
+    margin-bottom: 50px;
+}
+.footer_info{
+    margin-top: 20px;
+}
+.footer_info_list, .footer_copy_list{
+    display: flex;
+    justify-content: center;
+}
+.footer_info_list{
+    margin: 0 auto;
+}
+.footer_copy_list{
+    margin: 10px auto;
+}
+.footer_text{
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    display: flex;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="/css/register.css">
+    <script src="/js/register.js?ver=1231"></script>
+    <title>Instagram</title>
+</head>
+
+<body>
+<div id="login_wrap">
+    <div id="login_cont">
+        <div id="allMenu">
+            <div class="rghtBar">
+                <div class="fldstFirst">
+                    <fieldset>
+                        <img src="" alt="">
+                        <h4>친구들의 사진과 동영상을 보려면 가입하세요.</h4>
+                        <form action="/method/registUser" method="post">
+                            <input type="text" name="phoneOrEmail" id="phoneOrEmail" placeholder="휴대폰 번호 또는 이메일 주소" >
+                            <input type="text" name="name" id="name" placeholder="성명">
+                            <input type="text" name="username" id="username" placeholder="사용자 이름">
+                            <input type="password" name="password" id="password" placeholder="비밀번호" maxlength  = 13>
+                            <br>
+                            <button type="button" id="register">가입</button>
+                        </form>
+
+                    </fieldset>
+                </div>
+                <div class="fldstEnd">
+                    <div>
+                        <p>계정이 있으신가요? <a href="/view/loginTest">로그인</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer_cont">
+            <div class="footer_box">
+                <div class="footer_info">
+                    <div class="footer_info_list">
+                        <div class="footer_text"><a>Xeta</a></div>
+                        <div class="footer_text"><a>소개</a></div>
+                        <div class="footer_text"><a>블로그</a></div>
+                        <div class="footer_text"><a>채용 정보</a></div>
+                        <div class="footer_text"><a>도움말</a></div>
+                        <div class="footer_text"><a>API</a></div>
+                        <div class="footer_text"><a>Xeta</a></div>
+                        <div class="footer_text"><a>개인정보처리방침</a></div>
+                        <div class="footer_text"><a>약관</a></div>
+                        <div class="footer_text"><a>위치</a></div>
+                        <div class="footer_text"><a>Xnstagram Pro</a></div>
+                        <div class="footer_text"><a>Xhreads</a></div>
+                        <div class="footer_text"><a>연락처 업로드 & 비사용자</a></div>
+                    </div>
+                </div>
+                <div class="footer_copy">
+                    <div class="footer_copy_list">
+                        <div class="footer_text"><a>소개</a></div>
+                        <div class="footer_text"><a>© 2023 Instagram from Meta</a></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

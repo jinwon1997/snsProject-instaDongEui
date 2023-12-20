@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/profile_ch.css}">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<div id="wrap">
+  <form class="change-info" action="/view/profile_ch2" method="post" enctype="multipart/form-data">
+    <div class="change" th:each="user : ${result}">
+      <div class="title">프로필 편집</div>
+      <div class="profile">
+        <div class="left">
+          <div class="hide">
+            <img th:if="${not #strings.isEmpty(user.url)}" th:src="@{${user.url}}" onclick="openFileInput()">
+            <img th:if="${#strings.isEmpty(user.url)}" th:src="@{/img/logo.png}" onclick="openFileInput()">
+          </div>
+        </div>
+        <div class="profile-idimg">
+          <div class="u-id">
+            <span th:text="${user.name}">님</span>
+          </div>
+          <input type="file" id="profileImageInput" style="display: none;" accept="image/*" class="tfile" name="file">
+          <div class="change-img" role="button" onclick="openFileInput()">프로필 사진 바꾸기</div>
+        </div>
+      </div>
+      <div class="container">
+        <aside class="left"></aside>
+        <div class="right">
+          <div>
+            <div class="right-web">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <aside class="left" style="margin-top: 2px;">소개</aside>
+        <textarea class="right-intro" maxlength="20" oninput="countCharacters(this)" spellcheck="false" style="resize: none;"
+                  th:text="${user.introduce}" name="introduce"></textarea>
+        <span id="charCount">0 / 20</span>
+      </div>
+      <div class="container">
+        <aside class="left" style="margin-top: 1px">성별</aside>
+        <div class="right" style="padding: 0;">
+          <input type="radio" id="private" name="gender" value="0" th:checked="${user.gender == 0}">
+          <label for="private">비공개</label>
+
+          <input type="radio" id="male" name="gender" value="1" th:checked="${user.gender == 1}">
+          <label for="male">남성</label>
+
+          <input type="radio" id="female" name="gender" value="2" th:checked="${user.gender == 2}">
+          <label for="female">여성</label>
+        </div>
+      </div>
+      <div class="container">
+        <div class="left">
+          <aside class="none-left"></aside>
+        </div>
+        <div class="right">
+          <div>
+            <span class="notice">이 정보는 공개 프로필에 포함되지 않습니다.</span>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <aside class="left" style="display: flex; align-items: center; justify-content: flex-end; margin: 0;"><span>프로필에 계정<br>추천 표시</span></aside>
+        <div class="right">
+          <div class="right-recommend">
+            <div class="sel-check">
+              <input type="checkbox">
+            </div>
+            <div class="sel-recommend">
+              <div>
+                <span>사람들이 회원님의 프로필에서 비슷한 계정 추천을 볼 수있는지와 회원님의 계정이 다른 프로필에서 추천될 수 있는지를 선택하세요.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <aside class="left"></aside>
+        <div class="right">
+          <input type="button" class="right-submit" value="제출">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/profile_ch.js}"></script>
+</html>

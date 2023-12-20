@@ -1,0 +1,465 @@
+*,
+body,
+html {
+   margin: 0;
+   padding: 0;
+}
+
+a {
+   text-decoration: none;
+}.
+
+.fa-heart,
+.fa-comment,
+.fa-paper-plane,
+.fa-bookmark {
+   font-size: 32px;
+}
+
+.fa-heart:hover,
+.fa-comment:hover,
+.fa-paper-plane:hover,
+.fa-bookmark:hover,
+.recommend_follow:hover{
+    cursor: pointer;
+}
+
+#home_cont {
+   width: 100%;
+   min-height: 100vh;
+   display: flex;
+   position: relative;
+}
+
+#side_nav {
+   position: fixed;
+   z-index: 10;
+   top: 0;
+}
+
+#home_content_box {
+   width: calc(100% - 250px);
+   margin-left: auto;
+}
+
+.home_main {
+   display: flex;
+   flex-direction: column;
+}
+
+#home_main_for_align {
+   display: flex;
+   justify-content: center;
+}
+
+#home_feed_container {
+   width: 100%;
+   max-width: 630px;
+}
+
+#home_feed_box1 {
+   width: 630px;
+   margin-top: 20px;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+#home_feed_box2 {
+   width: 540px;
+   max-width: 100%;
+}
+
+.home_feed_contents {
+   display: flex;
+   flex-direction: column;
+   padding-bottom: 15px;
+   margin-bottom: 20px;
+   border-bottom: 1px solid #ccc;
+}
+
+.home_feed_head {
+   padding-left: 4px;
+   padding-bottom: 12px;
+}
+
+.feed_head_box {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   justify-content: flex-start;
+}
+.feed_head_nameLink{
+   color: black;
+}
+.feed_head_img_box1 {
+   margin-right: 12px;
+}
+.feed_head_text_box1{
+   display: flex;
+   flex-grow: 1;
+   align-self: stretch;
+}
+.feed_head_text_box2{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+.feed_head_img {
+   width: 32px;
+   height: 32px;
+   overflow: hidden;
+   border-radius: 50%;
+   display: flex;
+}
+.feed_head_profile_img{
+   object-fit: cover;
+}
+.dot_for_separate{
+   color: #777;
+   margin: 0 6px;
+}
+.feed_head_timeInfo{
+   display: flex;
+   flex-direction: row;
+   color: #666;
+   font-size: 14px;
+}
+.feed_head_more_box2{
+   margin-left: 10px;
+}
+
+.home_feed_body{
+   width: 100%;
+   overflow: hidden;
+}
+.home_body_list{
+   display: flex;
+   flex-direction: row;
+}
+
+.feed_footer_actionBox{
+   display: flex;
+   flex-direction: row;
+   margin: 4px 0;
+}
+.feed_footer_interactive{
+   width: 50%;
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: row;
+}
+.feed_footer_bookmarkBox{
+   width: 50%;
+   display: flex;
+   justify-content: flex-end;
+}
+.def_size{
+   width: 40px;
+   height: 40px;
+   box-sizing: border-box;
+   padding: 8px;
+}
+.like-icon .fa-solid {
+    color: red;
+}
+.feed_footer_cont{
+    padding-left: 4px;
+}
+.feed_footer_likeNumCont{
+   width: 100%;
+}
+.feed_footer_likeNumBox{
+   display: flex;
+   justify-content: flex-start;
+}
+.feed_footer_likeNumText{
+   font-size: 14px;
+   font-weight: bold;
+}
+.feed_footer_ownerCommentBox{
+   width: 100%;
+   margin-top: 6px;
+   font-size: 14px;
+   display: flex;
+
+}
+.feed_footer_ownerNameBox{
+   font-weight: bold;
+   margin-right: 3px;
+}
+.feed_footer_ownerTextBox{
+   margin: 0!important;
+   unicode-bidi: isolate;
+}
+.feed_footer_commentNumCont{
+   margin: 6px 0;
+}
+.feed_footer_commentNumBox{
+   font-size: 14px;
+   color: #777;
+}
+.feed_footer_postCommentBox{
+   display: flex;
+   flex-grow: 1;
+}
+.feed_footer_postComment1, .feed_footer_postComment2{
+   font-size: 14px;
+   outline: none;
+   border: none;
+   width: 90%;
+}
+
+.feed_footer_postComment:placeholder-shown{
+   font-size: 14px;
+}
+.feed_footer_inputBox{
+   display: flex;
+   justify-content: flex-start;
+}
+.feed_footer_emoteButton{
+   padding: 2px;
+   margin-left: 4px;
+}
+#recommend_user_container{
+   width: 320px;
+   height: 100vh;
+   padding-left: 80px;
+}
+#recommend_user_box{
+   margin-top: 36px;
+   display: flex;
+   flex-direction: column;
+}
+#recommend_myInfo_container{
+   width: 100%;
+   padding: 0 10px;
+}
+#recommend_myInfo_box1{
+   margin-right: 5px;
+}
+#recommend_myInfo_box2{
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+}
+.recommend_profile_align{
+   margin-right: 12px;
+}
+.recommend_profile_link{
+   width: 44px;
+   height: 44px;
+   display: flex;
+   border-radius: 50%;
+   border: 1px solid #ccc;
+   overflow: hidden;
+}
+.recommend_profile_img{
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+.recommend_userinfo_box{
+   align-self: stretch;
+   flex-grow: 1;
+}
+.recommend_userName_link{
+   font-weight: bold;
+   color: black;
+}
+.recommend_name_text{
+   font-size: 14px;
+   color: #777;
+}
+.recommend_userState_align{
+   margin-left: 12px;
+}
+#recommend_myState, .recommend_follow{
+   font-size: 14px;
+   font-weight: bold;
+   color: deepskyblue;
+}
+#recommend_for_user_container{
+   width: 100%;
+   margin-top: 24px;
+   margin-bottom: 8px;
+}
+#recommend_for_user_box{
+   margin: 0 16px;
+}
+#recommend_text_box{
+   display: flex;
+   flex-direction: row;
+   align-content: center;
+   padding: 10px 0;
+}
+#recommend_text_align{
+   align-self: stretch;
+   flex-grow: 1;
+}
+#recommend_text{
+   font-size: 16px;
+   font-weight: bold;
+   color: #777;
+}
+#recommend_more{
+   font-size: 12px;
+   font-weight: bold;
+   color: black;
+}
+#recommend_userList_box{
+   padding: 10px 0;
+}
+#recommend_userList_align{
+   display: flex;
+   flex-direction: column;
+   align-content: center;
+}
+.recommend_otherUser_container{
+   width: 100%;
+   padding: 15px 10px;
+}
+.recommend_othserUser_box1{
+   margin-right: 5px;
+}
+.recommend_othserUser_box2{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+
+.feed_footer_emoteButton {
+    position: relative;
+}
+
+.emoticonbox {
+    position: absolute;
+    top: -600%;
+    left: 30px;
+    right: 300px;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    background-color: white;
+    max-height: 200px; /* 최대 높이 설정 */
+    overflow-y: auto; /* Y축 스크롤 활성화 */
+}
+.emoticonbox div {
+    display: inline-block;
+    margin: 5px;  /* 이모티콘 간격 조절 */
+}
+body_img{
+   width: 100%;
+   box-sizing: border-box;
+   border: 1px solid #bbb;
+   border-radius: 4px;
+}
+.emoticonbox div %;
+   object-fit: cover;
+   margin: auto;
+   display: block;
+}
+.feed_body_list{
+    display: inline-block;
+    margin: 5px;  /* 이모티콘 간격 조절 */flex;
+   justify-content: center;
+}
+
+.emoticonbox2 {
+    position: absolute;
+    top: -610%;
+    left: 20px;
+    right: 500px;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    background-color: white;
+    max-height: 200px; /* 최대 높이 설정 */
+    overflow-y: auto; /* Y축 스크롤 활성화 */
+}
+
+.emoticonbox2 div {
+    display: inline-block;
+    margin: 5px;  /* 이모티콘 간격 조절 */
+}
+.emoticonbox2 div %;
+   object-fit: cover;
+   margin: auto;
+   display: block;
+}
+.feed_footer_postComment2:placeholder-shown{
+   font-size: 14px;
+}
+
+.explore_feed_scrolls {
+    max-height : 370px;
+}
+
+.modal_comment_btn{
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: #777;
+}
+
+.btn_modal{
+   width: 260px;
+   height: 50px;
+   color : red;
+   font-weight: bold;
+   border: 1px solid #CCCCCC;
+   cursor :pointer;
+   padding : 8px 4px;
+   line-height : 1.5px;
+   margin : 0;
+   text-align: center;
+   vertical-align: center;
+   min-height: 50px;
+   align-items: center;
+   background-color: white;
+   border-top-right-radius: 10px;
+   border-top-left-radius: 10px;
+}
+.btn_modal1{
+   width: 260px;
+   height: 50px;
+   border: 1px solid #CCCCCC;
+   cursor :pointer;
+   background-color: white;
+   padding : 8px 4px;
+   line-height : 1.5px;
+   margin : 0;
+   text-align: center;
+   vertical-align: center;
+   min-height: 50px;
+   align-items: center;
+}
+.btn_modal1:last-child{
+   border-bottom-right-radius: 10px;
+   border-bottom-left-radius: 10px;
+}
+.feed_head_morePopup{
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+}
+.feed_head_morePopup:hover{
+    background-color: #eee;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
+}
+
+#menu_align{
+    max-width: 240px;
+}
+
+.menu_list_align{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

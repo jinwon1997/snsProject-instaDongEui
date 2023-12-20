@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.snsProject.model.DAO.ImageDAO">
+
+    <!-- Query 문 작성해서 Mapping 하면 됨 -->
+    <select id="getImagesUrl" resultType="hashmap">
+        <![CDATA[
+            SELECT post_id, url
+            FROM post_image
+            WHERE id IN (
+                SELECT MIN(id)
+                FROM post_image
+                GROUP BY post_id
+            )
+            ORDER BY RAND();
+        ]]>
+    </select>
+</mapper>

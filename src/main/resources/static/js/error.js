@@ -1,0 +1,1 @@
+$('.error_nav_load').load('/view/navbar');

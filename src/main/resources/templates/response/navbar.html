@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.jpg" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/b06a377e67.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+<body>
+    <div id="navbar_wrap">
+        <div id="navbar_sub_cont">
+            <div id="navbar_box">
+                <div id="navbar_cont">
+                    <div id="navbar_logo_box">
+                        <a href="/view/home" class="logo_img">
+                            <img src="/img/logo.png" alt="">
+                        </a>
+                        <span id="mini_insta_icon">
+                            <i class="fa-brands fa-instagram"></i>
+                        </span>
+                    </div>
+                    <div id="navbar_ul_box">
+                        <ul>
+                            <li>
+                                <a href="/view/home">
+                                    <div class="box_for_icon">
+                                        <i class="fa-solid fa-house"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>홈</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li id="fa-magnifying-glass">
+                                <a href="#" onclick="searchToggle()">
+                                    <div class="box_for_icon">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>검색</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/explore/">
+                                    <div class="box_for_icon">
+                                        <i class="fa-solid fa-compass"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>탐색 탭</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/view/chat" onclick="dmToggle()">
+                                    <div class="box_for_icon">
+                                        <i class="fa-brands fa-facebook-messenger"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>메시지</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li id="fa-heart">
+                                <a href="#">
+                                    <div class="box_for_icon">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>알림</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/view/registPost">
+                                    <div class="box_for_icon">
+                                        <i class="fa-regular fa-square-plus"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>만들기</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li id="fa-instagram">
+                                <a href="/view/profile">
+                                    <div class="box_for_icon">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>프로필</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li id="fa-shop">
+                                <a href="/payments/">
+                                    <div class="box_for_icon">
+                                        <i class="fa-solid fa-shop"></i>
+                                    </div>
+                                    <div class="box_for_span">
+                                        <span>샵</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="submenu_btn">
+                        <a href="#">
+                            <div class="box_for_icon">
+                                <i class="fa-solid fa-bars"></i>
+                            </div>
+                            <div class="box_for_span">
+                                <span>더 보기</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div id="nav_submenu">
+                    <ul id="submenu_ul">
+                        <ol>
+                            <a href="#">
+                                <div>
+                                    <i class="fa-solid fa-gear"></i>
+                                </div>
+
+                                설정
+                            </a>
+                        </ol>
+                        <ol>
+                            <a href="#">
+                                <div>
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </div>
+                                저장됨
+                            </a>
+                        </ol>
+                        <ol>
+                            <a href="#" onclick="theme()">
+                                <div>
+                                    <i class="fa-solid fa-moon"></i>
+                                </div>
+                                모드 전환
+                            </a>
+                        </ol>
+                        <ol>
+                            <a href="#">
+                                <div>
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                내 활동
+                            </a>
+                        </ol>
+                        <ol>
+                            <a href="#">
+                                <div>
+                                    <i class="fa-solid fa-bug"></i>
+                                </div>
+                                문제 신고
+                            </a>
+                        </ol>
+                        <ol>
+                            <hr>
+                        </ol>
+                        <ol>
+                            <a href="#">
+                                계정 전환
+                            </a>
+                        </ol>
+                        <ol>
+                            <a href="/logout">로그 아웃</a>
+                        </ol>
+                    </ul>
+                </div>
+            </div>
+            <div id="search_box">
+                <div id="search_cont">
+                    <div id="search_title">
+                        <div>
+                            <span>검색</span>
+                        </div>
+                    </div>
+                    <div id="search_main">
+                        <div id="temp_div_for_border">
+                            <div id="search_sub_content">
+                                <div id="search_input_box">
+                                    <input type="text" class="search_input" placeholder="검색">
+                                    <div id="search_input_reset">
+
+                                    </div>
+                                    <div id="search_icon_box">
+                                        <div id="search_icon_input">
+                                            <div id="temp_div_for_align1">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </div>
+                                            <div id=temp_div_for_align2>
+                                                <input type="text" class="search_input" placeholder="검색" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="search_main_content">
+                            <div id="search_info"></div>
+                            <div id="search_result">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/navbar.js"></script>
+</body></html>

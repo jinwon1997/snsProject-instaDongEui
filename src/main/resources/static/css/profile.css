@@ -1,0 +1,215 @@
+*,
+body,
+html {
+   margin: 0;
+   padding: 0;
+}
+
+a {
+   text-decoration: none;
+}
+
+#profile_container {
+   width: 100%;
+   min-height: 100vh;
+   display: flex;
+   position: relative;
+}
+
+#profile_side_nav {
+    z-index: 5;
+   position: fixed;
+   top: 0;
+}
+
+#profile_box {
+   width: calc(100% - 250px);
+   margin-left: auto;
+}
+
+.profile_main {
+   display: flex;
+   flex-direction: column;
+}
+
+#profile_main_for_align {
+   display: flex;
+   justify-content: center;
+}
+
+#profile_content_box {
+   width: 100%;
+   min-width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile-setting {
+   margin-top: 30px;
+   display:flex;
+   justify-content: center;
+   padding-bottom: 40px;
+   border-bottom: 1px solid #ccc;
+}
+.profile-image{
+   width: 300px;
+   height: 150ppx;
+   justify-content: center;
+   align-content: center;
+   display: flex;
+
+}
+.profile-image img{
+   border-radius: 50%;
+   cursor: pointer;
+}
+.user-content{
+   display: flex;
+   font-size : 20px;
+   justify-content: flex-start;
+   align-items: center;
+}
+.user-button{
+   margin-left : 20px;
+}
+.user-setting{
+   margin-left : 15px;
+}
+.user-button input[type="button"] {
+   border: none;
+   border-radius: 5px;
+   padding: 5px 20px; /* Adjust padding as needed */
+   cursor: pointer;
+   font-weight: bold;
+}
+
+.nums{
+   display:flex;
+   list-style: none;
+   margin-top :20px
+}
+.nums li{
+   width: 90px;
+}
+.user-info{
+   margin-top: 20px;
+}
+.post-bookmark-box{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.post-bookmark-box #postLink, #savedLink{
+   cursor: pointer;
+}
+.profile-board{
+   justify-content: center;
+   height : 300px;
+}
+.saved-board{
+   text-align: center;
+   justify-content: center;
+   height : 300px;
+}
+.profile-board .none-board {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+}
+
+.saved-board .none-saved {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+}
+.none-board .none-image {
+   margin-bottom: 20px;
+}
+
+.share {
+   margin-bottom: 20px;
+}
+.share span{
+   font-size : 30px;
+   font-weight: bold;
+}
+.line-board{
+   display: flex;
+   justify-content: center
+}
+.postboard{
+   width: 300px;
+}
+.post-board{
+   color:deepskyblue;
+   cursor: pointer;
+   font-weight: bold;
+   font-size : 15px;
+}
+.saved-board .line-saved {
+   display: flex;
+   justify-content: center;
+}
+.saved-board .postsaved {
+   width: 300px;
+}
+.post-bookmark{
+    display: flex;
+}
+.post_box, .saved_box{
+    box-sizing: border-sizing;
+    margin: 0px 20px;
+    padding: 8px 0;
+}
+.post_box{
+    border-top: 2px solid black;
+}
+.none-image i.fa-solid.fa-camera,
+.none-image i.fa-regular.fa-bookmark {
+   font-size: 40px;
+}
+.add-board {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.add-only {
+   order: 1;
+   font-size : 12px;
+   color : gray;
+}
+
+.add-saved {
+   order: 2;
+   font-size : 14px;
+   color : deepskyblue;
+}
+
+.add-button {
+   cursor: pointer;
+}
+#home_feed_wrap, #home_feed_bookmark_wrap{
+    display: flex;
+    justify-content: center;
+}
+
+#home_feed_bookmark_container{
+   width: 100%;
+   max-width: 630px;
+}
+#home_feed_bookmark_box1{
+   width: 630px;
+   margin-top: 20px;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+#home_feed_bookmark_box2{
+   width: 540px;
+   max-width: 100%;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--<environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mydb"/>
+                <property name="username" value="root"/>
+                <property name="password" value="1234"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+    <mappers>
+        <mapper resource="mapper/user_mapper.xml"/>
+        <mapper resource="mapper/post_mapper.xml"/>
+        <mapper resource="mapper/follow_mapper.xml"/>
+        <mapper resource="mapper/comment_mapper.xml"/>
+        <mapper resource="mapper/bookmark_mapper.xml"/>
+        <mapper resource="mapper/login_mapper.xml"/>
+        <mapper resource="mapper/chat_mapper.xml"/>
+        <mapper resource="mapper/message_mapper.xml"/>
+        <mapper resource="mapper/profile_mapper.xml"/>
+        <mapper resource="mapper/profile_ch_mapper.xml"/>
+        <mapper resource="mapper/emoticon_mapper.xml"/>
+        <mapper resource="mapper/shop_mapper.xml"/>
+    </mappers>
+</configuration>

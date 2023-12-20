@@ -1,0 +1,353 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+ul{
+    padding: 0;
+}
+.fa-bug,
+.fa-clock,
+.fa-moon,
+.fa-bookmark,
+.fa-gear {
+    font-size: 22px;
+}
+.fa-square-plus,
+.fa-heart,
+.fa-facebook-messenger,
+.fa-clapperboard,
+.fa-compass,
+.fa-magnifying-glass,
+.fa-house,
+.fa-instagram,
+.fa-bars{
+    font-size: 22px;
+}
+.fa-shop{
+    font-size: 16px;
+}
+
+#navbar_wrap{
+    position: fixed;
+}
+#navbar_sub_cont{
+    position: relative;
+}
+#navbar_box {
+    width: 250px;
+    border-right: 1px solid #ccc;
+    height: 100vh;
+    overflow-x: visible;
+    position: relative;
+    background-color: white;
+    z-index: 10;
+}
+#navbar_cont{
+    padding: 10px;
+}
+.box_for_icon{
+    width: 24px;
+    height: 24px;
+    align-content: center;
+}
+.box_for_span{
+    align-items: center;
+    margin-left: 18px;
+}
+#navbar_box a{
+    display: flex;
+    color: black;
+}
+#navbar_ul_box{
+    min-height: 475px;
+    height: calc(100vh - 170px);
+}
+#navbar_logo_box{
+    height: 91px;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+#navbar_logo_box img{
+    width: 130px;
+    object-fit: cover;
+}
+#navbar_logo_box #mini_insta_icon{
+    display: none;
+}
+#navbar_box ul{
+    min-height: 360px;
+}
+#navbar_box ul li, #submenu_btn{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 15px;
+    list-style: none;
+}
+#navbar_box ul li span{
+    vertical-align: top;
+}
+#navbar_box ul li a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#navbar_box ul li a img {
+    border-radius: 50%;
+    width: 25px;
+}
+#submenu_btn a{
+    display: flex;
+}
+#nav_submenu {
+    width: 240px;
+    height: 320px;
+    position: absolute;
+    display: none;
+    top: 320px;
+    left: 30px;
+}
+#nav_submenu ul {
+    width: 200px;
+    padding: 10px;
+    display: block;
+    position: absolute;
+    background-color: white;
+    left: 20px;
+    bottom: 0;
+    z-index: 12;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+}
+#nav_submenu ul ol {
+    padding: 10px;
+    list-style: none;
+}
+#nav_submenu li {
+    margin-left: 26px;
+    list-style: none;
+    margin-top: 3.8em;
+}
+
+#nav_submenu li a {
+    font-size: 1.5rem;
+}
+#nav_submenu ol a {
+    font-size: 16px;
+    margin: 2px 0;
+    font-family: system-ui;
+}
+#nav_submenu ol div{
+    width: 30px;
+    padding: 0 6px;
+}
+#submenu_ul:nth-child(6){
+    overflow: visible;
+}
+#nav_submenu hr{
+    width: 220px;
+    height: 3px;
+    transform: translateX(-20px);
+    color: #ccc;
+    border-style: solid none none;
+}
+#search_box{
+    width: 400px;
+    height: 100%;
+    left: -400px;
+    top: 0;
+    position: absolute;
+    display: none;
+    background-color: white;
+    box-shadow: 6px 0 5px -2px #ccc;
+    border-left: 1px solid #ddd;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+#search_cont{
+    padding: 10px 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+#search_title{
+    padding: 20px 10px 40px 24px;
+    font-size: 24px;
+    font-weight: bold;
+}
+#temp_div_for_border{
+    border-bottom: 1px solid #ccc;
+}
+#search_sub_content{
+    width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+#search_input_box{
+    position: relative;
+    margin-bottom: 30px;
+}
+.search_input:focus{
+    outline: none;
+}
+.search_input, #search_icon_box{
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #eee;
+    border-radius: 8px;
+    border: none;
+    box-sizing: border-box;
+}
+#search_icon_box{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 0;
+    z-index: 8;
+}
+#search_icon_box:hover{
+    cursor: text;
+}
+#search_icon_input{
+    display: flex;
+    align-items: center;
+}
+#temp_div_for_align1{
+    display: flex;
+    padding: 0 5px;
+}
+#temp_div_for_align2{
+    padding-bottom: 2px;
+}
+#search_icon_input span{
+    font-size: 16px;
+    color: #777;
+}
+#search_icon_input .fa-magnifying-glass{
+    font-size: 16px;
+    color: #777;
+}
+#search_user_container{
+    width: 320px;
+    height: 100vh;
+    padding-left: 40px;
+}
+#search_user_box{
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+}
+#search_myInfo_container{
+    width: 100%;
+    padding: 0 10px;
+}
+#search_myInfo_box1{
+    margin-right: 5px;
+}
+#search_myInfo_box2{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.search_profile_align{
+    margin-right: 12px;
+}
+.search_profile_box{
+    display: flex;
+    flex-direction: row;
+}
+.search_profile_link{
+    width: 44px;
+    height: 44px;
+    display: flex;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+.search_profile_img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.search_userinfo_box {
+    align-self: stretch;
+    display:flex;
+    flex-direction: column;
+    margin-left : 10px;
+}
+
+.search_userName_link{
+    font-weight: bold;
+    color: black;
+}
+.search_name_text{
+    font-size: 14px;
+    color: #777;
+}
+.search_userState_align{
+    margin-left: 12px;
+}
+#search_myState, .recommend_follow{
+    font-size: 14px;
+    font-weight: bold;
+    color: deepskyblue;
+}
+#search_for_user_container{
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+#search_for_user_box{
+    margin: 0 16px;
+}
+#search_text_box{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    padding: 10px 0;
+}
+#search_text_align{
+    align-self: stretch;
+    flex-grow: 1;
+}
+#search_text{
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;
+}
+#search_more{
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+}
+#search_userList_box{
+    padding: 10px 0;
+}
+#search_userList_align{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.search_otherUser_container{
+    width: 100%;
+    padding: 15px 10px;
+}
+.search_otherUser_box1{
+    margin-right: 5px;
+    display:flex;
+    margin-left : 10px;
+    margin-top : 5px;
+    padding : 5px;
+}
+.search_otherUser_box2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

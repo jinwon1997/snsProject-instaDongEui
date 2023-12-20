@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.snsProject.model.DAO.Profile_chDAO">
+
+    <!-- Query 문 작성해서 Mapping 하면 됨 -->
+    <select id="getAllUserInfo" resultType="map">
+        <![CDATA[
+            select id,name,user_name,introduce,url,gender from member where id = #{member_id}
+        ]]>
+    </select>
+
+    <update id="updateUserInfo">
+        <![CDATA[
+            UPDATE member SET url = #{url},introduce = #{introduce},gender = #{gender} WHERE id = #{member_id};
+        ]]>
+    </update>
+
+</mapper>
+

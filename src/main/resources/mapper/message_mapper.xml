@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.snsProject.model.DAO.MessageDAO">
+
+    <insert id="insertMessage">
+        <![CDATA[
+            insert into message values(NULL,#{member_id},#{room_id},NOW(),#{type})
+        ]]>
+    </insert>
+
+    <insert id="insertMessageText">
+        <![CDATA[
+            insert into message_text values(#{message_id},#{content})
+        ]]>
+    </insert>
+
+    <select id="getAllMessage" resultType="map">
+        <![CDATA[
+            select * from message_view where room_id = #{room_id}
+        ]]>
+    </select>
+
+    <select id="getMessageCount" resultType="long">
+        <![CDATA[
+            select count(*) from message_view
+        ]]>
+    </select>
+
+</mapper>
+
+        <!--
+        image - 1
+        like - 2
+        post - 3
+        text - 4
+        -->

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/b06a377e67.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/home2.css">
+    <link rel="stylesheet" href="/css/loadPost.css">
+    <link rel="stylesheet" href="/css/followers.css">
+</head>
+
+<body>
+<div id="profile_wrap">
+    <div id="profile_container">
+        <div id="profile_side_nav">
+            <div class="profile_nav_load"></div>
+        </div>
+        <div id="profile_box">
+            <main class="profile_main">
+                <div id="profile_main_for_align">
+                    <div id="profile_content_box">
+                        <header class="profile-setting" th:each="profileInfo : ${profileInfo}">
+                            <div class="profile-image">
+                                <img width="150px" height="150px" th:if="${not #strings.isEmpty(profileInfo.url)}" th:src="@{__${profileInfo.url}__}" alt="img/logo.png">
+                                <img width="150px" height="150px" th:if="${#strings.isEmpty(profileInfo['url'])}" th:src="@{/img/logo.png}" alt="/img/logo.png">
+                            </div>
+                            <section class="profile-content">
+                                <div class="user-content">
+                                    <span th:text="${profileInfo['name']}">testid</span>
+                                    <div class="user-button">
+                                        <a href="profile_ch">
+                                        <input type="button" value="프로필 편집">
+                                        </a>
+                                    </div>
+                                    <div class="user-setting"><i class="fa-solid fa-gear"></i></div>
+                                </div>
+                                <div class="modal-backdrop" id="modalBackdrop"></div>
+
+                                <div id="follower_click">
+                                    <div class="modal" id="myModal">
+                                        <div class="modal_content">
+                                            <h4 id="follower_title">나를 팔로우 한 유저</h4>
+                                            <div class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+                                        </div>
+
+                                        <div id="search_main">
+                                            <div id="search_sub_content">
+                                                <div id="search_input_box">
+                                                    <input type="text" class="search_input" placeholder="검색">
+                                                    <div id="search_input_reset">
+
+                                                    </div>
+                                                    <div id="search_icon_box">
+                                                        <div id="search_icon_input">
+                                                            <div id="temp_div_for_align1">
+                                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                            </div>
+                                                            <div id=temp_div_for_align2>
+                                                                <input type="text" class="search_input" placeholder="검색" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="search_main_content">
+                                                <div id="search_info"></div>
+                                                <div id="search_result">
+                                                    <div class="follower_list" id="follower_list">
+                                                        <div class="follower_list_info" th:each="follower : ${followers}">
+                                                            <div class="follower_list_img">
+                                                                <img th:if="${ #strings.isEmpty(follower.url) }" th:src="@{/img/logo.png}">
+                                                                <img th:unless="${ #strings.isEmpty(follower.url) }" th:src="${follower.url}">
+                                                            </div>
+                                                            <div class="follower_name_info">
+
+                                                                <div class="follower_list_user_name" th:text="${follower['user_name']}" >user_name</div>
+                                                                <div class="follower_list_name" th:text="${follower['name']}">name</div>
+
+                                                                <input type="hidden" th:value="${follower['id']}">
+                                                                <button th:id="'follower_list_follow'+${follower['id']}" class="follower_button"
+                                                                        th:if="${ #strings.isEmpty(follower['follow_check']) }" th:value="${follower['id']}">
+
+                                                                    <span>팔로우함</span>
+                                                                </button>
+                                                                <button th:id="'follower_list_follow'+${follower['id']}" class="follower_button"
+                                                                        th:if="${follower['follow_check'] == 'true'}" th:value="${follower['id']}">
+
+                                                                    <span>팔로우</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <ul class="nums">
+                                    <li>게시물
+                                        <span class="count" id="CountPost" th:text="${CountPosts}">-1</span>
+                                    </li>
+                                    <li value="follower" onclick="openModalFollower()" style="cursor: pointer;">팔로워 <!--나를 팔로우 한 사람의 수-->
+                                        <input id="follower_text" type="hidden" value="follower">
+                                        <span class="count" id="CountFollows" th:text="${CountFollows}">-1</span>
+                                    </li>
+                                    <li value="follow" onclick="openModalFollow()" style="cursor: pointer;">팔로우 <!-- 내가 팔로우한 사람의 수-->
+                                        <input id="follow_text" type="hidden" value="follow">
+                                        <span class="count" th:text="${CountFollowers}">-1</span>
+                                    </li>
+                                </ul>
+
+                                <div class="nums" th:text="${profileInfo['name']}">testname</div>
+                                <div class="nums" th:text="${profileInfo['introduce']}">소개글</div>
+                            </section>
+                        </header>
+                        <div class="post-bookmark-box">
+                            <div class="post-bookmark">
+                                <div class="post_box">
+                                    <a aria-selected="true" id="postLink" >
+                                        <span class="category">게시물</span>
+                                    </a>
+                                </div>
+                                <div class="saved_box">
+                                    <a aria-selected="false" id="savedLink">
+                                        <span class="category">저장됨</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    <div id="home_feed_wrap">
+                        <div id="home_feed_container">
+                            <div id="home_feed_box1">
+                                <div id="home_feed_box2">
+                                    <div>
+                                        <div th:if="${postssizes} == 0">
+                                            <div style="text-align: center;" class="profile-board">
+                                                <div class="none-board">
+                                                    <div class="none-image"><i class="fa-solid fa-camera"></i></div>
+                                                    <div class="share">
+                                                        <span>사진 공유</span>
+                                                    </div>
+                                                    <div class="share-notice">
+                                                        <span>사진을 공유하면 회원님의 프로필에 표시 됩니다.</span>
+                                                    </div>
+                                                    <br>
+                                                    <div class="post-board" role="button">첫 사진 공유하기</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <article th:each="post : ${posts}" th:id="'Post' + ${post.id}">
+                                            <div class="home_feed_contents">
+                                                <div class="home_feed_head">
+                                                    <div class="feed_head_box">
+                                                        <div class="feed_head_img_box1">
+                                                            <div>
+                                                                <div class="feed_head_img_box2">
+                                                                    <a href="#" class="feed_head_img">
+                                                                        <img alt="누군가의 프로필 사진" class="feed_head_profile_img" th:src="${post.getUrl}">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_head_text_box1">
+                                                            <div class="feed_head_text_box2">
+                                                                <div>
+                                                                    <div class="feed_head_nameInfo">
+                                                                        <a href="#" class="feed_head_nameLink">
+                                                                            <span class="feed_head_name" th:text="${post.name}"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="feed_head_timeInfo">
+                                                   <span class="dot_for_separate">
+                                                      <span class="common_dot">•</span>
+                                                   </span>
+                                                                    <div class="feed_head_time_box">
+                                                                        <a class="feed_head_timeLink">
+                                                                            <span class="feed_head_time" th:text="${post.date}"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_head_more_box1">
+                                                            <div class="feed_head_more_box2">
+                                                                <button type="button" class="feed_head_morePopup" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <!-- modal -->
+                                                                <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" id="menu_align">
+                                                                        <div class="none">
+                                                                            <div class="modal_content menu_list_align">
+                                                                                <button type="button" class="btn_modal" data-bs-dismiss="modal" aria-label="">삭제</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">좋아요 수 숨기기</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">게시물로 이동</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">링크 복사</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">이 계정 정보</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="Close">취소</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="home_feed_body">
+                                                    <div class="feed_body_cont">
+                                                        <div class="feed_body_list">
+                                                            <div th:id="'carouselExampleIndicators'+${post.id}" class="carousel slide">
+                                                                <div class="carousel-indicators">
+                                                                    <button th:each="image, iterStat : ${post.images}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${post.id}"
+                                                                            th:data-bs-slide-to="${iterStat.index}"
+                                                                            th:class="${iterStat.first} ? 'active' : null"
+                                                                            th:aria-label="'Slide ' + ${iterStat.count}">
+
+                                                                    </button>
+                                                                </div>
+                                                                <div class="carousel-inner">
+                                                                    <div th:each="image, iterStat : ${post.images}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+                                                                        <img class="carouselImg" th:src="${image.url}" alt=""/>
+                                                                    </div>
+                                                                </div>
+                                                                <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${post.id}" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                </button>
+                                                                <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${post.id}" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="home_feed_footer">
+                                                    <div class="feed_footer_cont">
+                                                        <div class="feed_footer_actionBox">
+                                                            <div class="feed_footer_interactive">
+                                                                <div class="feed_footer_likeBox def_size">
+                                                <span class="like-icon">
+                                                   <i th:if="${post.likeYN == 1}" class="fa-solid fa-heart" th:data-post-id="${post.id}"></i>
+                                                   <i th:unless="${post.likeYN == 1}" class="fa-regular fa-heart" th:data-post-id="${post.id}"></i>
+                                                </span>
+                                                                </div>
+                                                                <div class="feed_footer_commentBox def_size">
+                                                                    <span><i class="fa-regular fa-comment fa-lg" th:data-post-id = "${post.id}"></i></span>
+                                                                </div>
+                                                                <div class="feed_footer_messageBox def_size">
+                                                                    <span><i class="fa-regular fa-paper-plane fa-lg" th:data-post-id = "${post.id}"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed_footer_bookmarkBox">
+                                                                <div class="feed_footer_bookmark def_size">
+                                                                    <span><i th:class="${post.bookmarkYN > 0} ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" th:data-post-id = "${post.id}"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_footer_likeNumCont">
+                                                            <div class="feed_footer_likeNumBox">
+                                                <span class="feed_footer_likeNumText">
+                                                   좋아요
+                                                   <span class="feed_footer_likeNum" th:id="'likeCount_' + ${post.id}" th:text="${#lists.size(post.likes)}"></span>만개
+                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_footer_ownerCommentBox">
+                                                            <div class="feed_footer_ownerNameBox">
+                                                <span class="feed_footer_ownerName"  th:text="${post.Name}">
+                                                </span>
+                                                            </div>
+                                                            <div class="feed_footer_ownerTextBox">
+                                                <span class="feed_footer_ownerText"  th:text="${post.content}">
+                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_footer_commentNumCont">
+                                                            <div class="feed_footer_commentNumBox">
+                                                <span class="feed_footer_commentText">
+                                                   댓글
+                                                   <span class="feed_footer_commentNum" th:text="${post.commentSize}"></span>개
+                                                   <button type="button" class="modal_comment_btn" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + ${post.id}">
+                                                       모두 보기
+                                                   </button>
+                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal" th:id="'exampleModal' + ${post.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="none">
+                                                        <div class="modal-content">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <div class="modal-body">
+                                                                <div th:id="'carouselExampleIndicators_'+ ${post.id}" class="carousel slide">
+                                                                    <div class="carousel-indicators">
+                                                                        <button th:each="image, iterStat : ${post.images}" type="button" th:data-bs-target="'#carouselExampleIndicators_'+${post.id}"
+                                                                                th:data-bs-slide-to="${iterStat.index}"
+                                                                                th:class="${iterStat.first} ? 'active' : null"
+                                                                                th:aria-label="'Slide ' + ${iterStat.count}">
+
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="carousel-inner">
+                                                                        <div th:each="image, iterStat : ${post.images}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+                                                                            <img class="carouselImg" th:src="${image.url}" alt=""/>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="carousel-control-prev" type="button" th:attr="data-bs-target='#carouselExampleIndicators_'+${post.id}"
+                                                                            data-bs-slide="prev">
+                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Previous</span>
+                                                                    </button>
+                                                                    <button class="carousel-control-next" type="button" th:attr="data-bs-target='#carouselExampleIndicators_'+${post.id}"
+                                                                            data-bs-slide="next">
+                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Next</span>
+                                                                    </button>
+
+                                                                </div>
+                                                                <div class="explore_feed_contents">
+                                                                    <header class="explore_feed_head">
+                                                                        <div class="explore_feed_head_box">
+
+                                                                            <div class="explore_feed_head_imgbox">
+                                                                                <a href="#" class="explore_feed_head_img">
+                                                                                    <img th:src="${post.getUrl}" alt="">
+                                                                                </a>
+                                                                            </div>
+
+                                                                            <div class="explore_feed_infobox">
+                                                                                <div class="explore_feed_infobox1" th:text="${post.name}">
+                                                                                </div>
+                                                                                <div class="explore_feed_infobox2" th:text="${post.Name}">
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="explore_feed_head_ellipsis">
+                                                                            <i class="fa-solid fa-ellipsis fa-lg"></i>
+                                                                        </div>
+                                                                    </header>
+
+                                                                    <div class="explore_feed_inside">
+                                                                        <div class="explore_feed_scrolls">
+                                                                            <div class="explore_feed_head_box">
+
+                                                                                <div class="explore_feed_head_imgbox">
+                                                                                    <a href="#" class="explore_feed_head_img">
+                                                                                        <img th:src="${post.getUrl}" alt="">
+                                                                                    </a>
+                                                                                </div>
+
+                                                                                <div class="explore_feed_infobox">
+                                                                                    <div class="explore_feed_infobox1" th:text="${post.name}">
+                                                                                    </div>
+                                                                                    <div class="explore_feed_infobox2" th:text="${post.content}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="explore_feed_comment_box" th:each="comment : ${post.comments}">
+                                                                                <div class="explore_feed_comment_imgbox">
+                                                                                    <a href="#" class="explore_feed_comment_img">
+                                                                                        <img th:src="${comment.url}" alt="">
+                                                                                    </a>
+                                                                                </div>
+
+                                                                                <div class="explore_feed_comment_infobox">
+                                                                                    <div class="explore_feed_comment_infobox1" th:text="${comment.name}">
+                                                                                    </div>
+                                                                                    <div class="explore_feed_comment_infobox2" th:text="${comment.content}">
+                                                                                    </div>
+                                                                                    <div class="explore_feed_comment_infobox2" th:text="${comment.date}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="explore_feed_footer">
+                                                                            <div class="home_feed_footer">
+                                                                                <div class="feed_footer_cont">
+                                                                                    <div class="feed_footer_actionBox">
+                                                                                        <div class="feed_footer_interactive">
+                                                                                            <div class="feed_footer_likeBox def_size">
+                                                    <span class="like-icon">
+                                                       <i th:if="${post.likeYN == 1}" class="fa-solid fa-heart" th:data-post-id="${post.id}"></i>
+                                                       <i th:unless="${post.likeYN == 1}" class="fa-regular fa-heart" th:data-post-id="${post.id}"></i>
+                                                    </span>
+                                                                                            </div>
+                                                                                            <div class="feed_footer_commentBox def_size">
+                                                                                                <span><i class="fa-regular fa-comment fa-lg" th:data-post-id = "${post.id}"></i></span>
+                                                                                            </div>
+                                                                                            <div class="feed_footer_messageBox def_size">
+                                                                                                <span><i class="fa-regular fa-paper-plane fa-lg" th:data-post-id = "${post.id}"></i></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="feed_footer_bookmarkBox">
+                                                                                            <div class="feed_footer_bookmark def_size">
+                                                                                                <span><i th:class="${post.bookmarkYN > 0} ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" th:data-post-id = "${post.id}"></i></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_likeNumCont">
+                                                                                        <div class="feed_footer_likeNumBox">
+                                                    <span class="feed_footer_likeNumText">
+                                                       좋아요
+                                                       <span class="feed_footer_likeNum" th:id="'likeCount2_' + ${post.id}" th:text="${#lists.size(post.likes)}"></span>만개
+                                                    </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_ownerCommentBox">
+                                                                                        <div class="feed_footer_ownerNameBox">
+                                                    <span class="feed_footer_ownerName"  th:text="${post.Name}">
+                                                    </span>
+                                                                                        </div>
+                                                                                        <div class="feed_footer_ownerTextBox">
+                                                    <span class="feed_footer_ownerText"  th:text="${post.content}">
+                                                    </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_commentNumCont">
+                                                                                        <div class="feed_footer_commentNumBox">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_inputCont">
+                                                                                        <form>
+                                                                                            <div class="feed_footer_inputBox">
+                                                                                                <div class="feed_footer_postCommentBox">
+                                                                                                    <input type="text" class="feed_footer_postComment2" placeholder="댓글 달기..">
+                                                                                                    <input type="hidden" id = "postId" th:value="${post.id}">
+                                                                                                </div>
+                                                                                                <div class="feed_footer_emoteButton">
+                                                                           <span>
+                                                                              <i class="fa-regular fa-face-smile">
+                                                                              </i>
+                                                                              <div class="emoticonbox2">
+                                                                                    <div class="emoticon" th:text="${emoticons}" th:each="emoticons : ${emoticon}"></div>
+                                                                              </div>
+                                                                           </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div id="home_feed_bookmark_wrap">
+                        <div id="home_feed_bookmark_container">
+                            <div id="home_feed_bookmark_box1">
+                                <div id="home_feed_bookmark_box2">
+                                    <div>
+                                        <div class="saved-board" style="display: none;" th:if="${postbookmarkssizes} == 0">
+                                            <div class="add-board">
+                                                <div class="add-only">
+                                                    <span>저장한 내용은 회원님만 볼 수 있습니다.</span>
+                                                </div>
+                                                <div class="add-saved">
+                                                    <div class="add-button" role="button">+ 새 컬렉션</div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="none-image"><i class="fa-regular fa-bookmark"></i></div>
+                                            <div class="share">
+                                                <br>
+                                                <span>저장</span>
+                                            </div>
+
+                                            <div class="share-notice">
+                                                  <span>다시 보고 싶은 사진과 동영상을 저장하세요. 콘텐츠를 <br>
+                                                  저장해도 다른 사람에게 알림이 전송되지 않으며, 저장된 <br>
+                                                  콘텐츠는 회원님만 볼 수 있습니다</span>
+                                            </div>
+                                        </div>
+                                        <article th:each="postbookmark : ${postbookmarks}" th:id="'Post' + ${postbookmark.id}">
+                                            <div class="home_feed_contents">
+                                                <div class="home_feed_head">
+                                                    <div class="feed_head_box">
+                                                        <div class="feed_head_img_box1">
+                                                            <div>
+                                                                <div class="feed_head_img_box2">
+                                                                    <a href="#" class="feed_head_img">
+                                                                        <img th:if="${not #strings.isEmpty(postbookmark.url)}" th:src="@{__${postbookmark.url}__}" alt="누군가의 프로필 사진">
+                                                                        <img th:if="${#strings.isEmpty(postbookmark['url'])}" th:src="@{logo.png}" alt="누군가의 프로필 사진">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_head_text_box1">
+                                                            <div class="feed_head_text_box2">
+                                                                <div>
+                                                                    <div class="feed_head_nameInfo">
+                                                                        <a href="#" class="feed_head_nameLink">
+                                                                            <span class="feed_head_name" th:text="${postbookmark.name}"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="feed_head_timeInfo">
+                                                   <span class="dot_for_separate">
+                                                      <span class="common_dot">•</span>
+                                                   </span>
+                                                                    <div class="feed_head_time_box">
+                                                                        <a class="feed_head_timeLink">
+                                                                            <span class="feed_head_time" th:text="${postbookmark.date}"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_head_more_box1">
+                                                            <div class="feed_head_more_box2">
+                                                                <button type="button" class="feed_head_morePopup" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                                </button>
+                                                                <!-- modal -->
+                                                                <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" id="menu_align">
+                                                                        <div class="none">
+                                                                            <div class="modal_content menu_list_align">
+                                                                                <button type="button" class="btn_modal" data-bs-dismiss="modal" aria-label="">삭제</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">좋아요 수 숨기기</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">게시물로 이동</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">링크 복사</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="">이 계정 정보</button>
+                                                                                <button type="button" class="btn_modal1" data-bs-dismiss="modal" aria-label="Close">취소</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="home_feed_body">
+                                                    <div class="feed_body_cont">
+                                                        <div class="feed_body_list">
+                                                            <div th:id="'carouselExampleIndicators'+${postbookmark.id}" class="carousel slide">
+                                                                <div class="carousel-indicators">
+                                                                    <button th:each="image, iterStat : ${postbookmark.images}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${postbookmark.id}"
+                                                                            th:data-bs-slide-to="${iterStat.index}"
+                                                                            th:class="${iterStat.first} ? 'active' : null"
+                                                                            th:aria-label="'Slide ' + ${iterStat.count}">
+
+                                                                    </button>
+                                                                </div>
+                                                                <div class="carousel-inner">
+                                                                    <div th:each="image, iterStat : ${postbookmark.images}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+                                                                        <img class="carouselImg" th:src="${image.url}" alt=""/>
+                                                                    </div>
+                                                                </div>
+                                                                <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${postbookmark.id}" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                </button>
+                                                                <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${postbookmark.id}" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="home_feed_footer">
+                                                    <div class="feed_footer_cont">
+                                                        <div class="feed_footer_actionBox">
+                                                            <div class="feed_footer_interactive">
+                                                                <div class="feed_footer_likeBox def_size">
+                                                <span class="like-icon">
+                                                   <i th:if="${postbookmark.likeYN == 1}" class="fa-solid fa-heart" th:data-post-id="${postbookmark.id}"></i>
+                                                   <i th:unless="${postbookmark.likeYN == 1}" class="fa-regular fa-heart" th:data-post-id="${postbookmark.id}"></i>
+                                                </span>
+                                                                </div>
+                                                                <div class="feed_footer_commentBox def_size">
+                                                                    <span><i class="fa-regular fa-comment fa-lg" th:data-post-id = "${postbookmark.id}"></i></span>
+                                                                </div>
+                                                                <div class="feed_footer_messageBox def_size">
+                                                                    <span><i class="fa-regular fa-paper-plane fa-lg" th:data-post-id = "${postbookmark.id}"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="feed_footer_bookmarkBox">
+                                                                <div class="feed_footer_bookmark def_size">
+                                                                    <span><i th:class="${postbookmark.bookmarkYN > 0} ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" th:data-post-id = "${postbookmark.id}"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_footer_likeNumCont">
+                                                            <div class="feed_footer_likeNumBox">
+                                                <span class="feed_footer_likeNumText">
+                                                   좋아요
+                                                   <span class="feed_footer_likeNum" th:id="'likeCount_' + ${postbookmark.id}" th:text="${#lists.size(postbookmark.likes)}"></span>만개
+                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_footer_ownerCommentBox">
+                                                            <div class="feed_footer_ownerNameBox">
+                                                <span class="feed_footer_ownerName"  th:text="${postbookmark.Name}">
+                                                </span>
+                                                            </div>
+                                                            <div class="feed_footer_ownerTextBox">
+                                                <span class="feed_footer_ownerText"  th:text="${postbookmark.content}">
+                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="feed_footer_commentNumCont">
+                                                            <div class="feed_footer_commentNumBox">
+                                                <span class="feed_footer_commentText">
+                                                   댓글
+                                                   <span class="feed_footer_commentNum" th:text="${postbookmark.commentSize}"></span>개
+                                                   <button type="button" class="modal_comment_btn" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal' + ${postbookmark.id}">
+                                                       모두 보기
+                                                   </button>
+                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal" th:id="'exampleModal' + ${postbookmark.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="none">
+                                                        <div class="modal-content">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <div class="modal-body">
+                                                                <div th:id="'carouselExampleIndicators_'+ ${postbookmark.id}" class="carousel slide">
+                                                                    <div class="carousel-indicators">
+                                                                        <button th:each="image, iterStat : ${postbookmark.images}" type="button" th:data-bs-target="'#carouselExampleIndicators_'+${postbookmark.id}"
+                                                                                th:data-bs-slide-to="${iterStat.index}"
+                                                                                th:class="${iterStat.first} ? 'active' : null"
+                                                                                th:aria-label="'Slide ' + ${iterStat.count}">
+
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="carousel-inner">
+                                                                        <div th:each="image, iterStat : ${postbookmark.images}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+                                                                            <img class="carouselImg" th:src="${image.url}" alt=""/>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="carousel-control-prev" type="button" th:attr="data-bs-target='#carouselExampleIndicators_'+${postbookmark.id}"
+                                                                            data-bs-slide="prev">
+                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Previous</span>
+                                                                    </button>
+                                                                    <button class="carousel-control-next" type="button" th:attr="data-bs-target='#carouselExampleIndicators_'+${postbookmark.id}"
+                                                                            data-bs-slide="next">
+                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Next</span>
+                                                                    </button>
+
+                                                                </div>
+                                                                <div class="explore_feed_contents">
+                                                                    <header class="explore_feed_head">
+                                                                        <div class="explore_feed_head_box">
+
+                                                                            <div class="explore_feed_head_imgbox">
+                                                                                <a href="#" class="explore_feed_head_img">
+                                                                                    <img th:src="${postbookmark.getUrl}" alt="">
+                                                                                </a>
+                                                                            </div>
+
+                                                                            <div class="explore_feed_infobox">
+                                                                                <div class="explore_feed_infobox1" th:text="${postbookmark.name}">
+                                                                                </div>
+                                                                                <div class="explore_feed_infobox2" th:text="${postbookmark.Name}">
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="explore_feed_head_ellipsis">
+                                                                            <i class="fa-solid fa-ellipsis fa-lg"></i>
+                                                                        </div>
+                                                                    </header>
+
+                                                                    <div class="explore_feed_inside">
+                                                                        <div class="explore_feed_scrolls">
+                                                                            <div class="explore_feed_head_box">
+
+                                                                                <div class="explore_feed_head_imgbox">
+                                                                                    <a href="#" class="explore_feed_head_img">
+                                                                                        <img th:src="${postbookmark.getUrl}" alt="">
+                                                                                    </a>
+                                                                                </div>
+
+                                                                                <div class="explore_feed_infobox">
+                                                                                    <div class="explore_feed_infobox1" th:text="${postbookmark.name}">
+                                                                                    </div>
+                                                                                    <div class="explore_feed_infobox2" th:text="${postbookmark.content}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="explore_feed_comment_box" th:each="comment : ${postbookmark.comments}">
+                                                                                <div class="explore_feed_comment_imgbox">
+                                                                                    <a href="#" class="explore_feed_comment_img">
+                                                                                        <img th:src="${comment.url}" alt="">
+                                                                                    </a>
+                                                                                </div>
+
+                                                                                <div class="explore_feed_comment_infobox">
+                                                                                    <div class="explore_feed_comment_infobox1" th:text="${comment.name}">
+                                                                                    </div>
+                                                                                    <div class="explore_feed_comment_infobox2" th:text="${comment.content}">
+                                                                                    </div>
+                                                                                    <div class="explore_feed_comment_infobox2" th:text="${comment.date}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="explore_feed_footer">
+                                                                            <div class="home_feed_footer">
+                                                                                <div class="feed_footer_cont">
+                                                                                    <div class="feed_footer_actionBox">
+                                                                                        <div class="feed_footer_interactive">
+                                                                                            <div class="feed_footer_likeBox def_size">
+                                                    <span class="like-icon">
+                                                       <i th:if="${postbookmark.likeYN == 1}" class="fa-solid fa-heart" th:data-post-id="${postbookmark.id}"></i>
+                                                       <i th:unless="${postbookmark.likeYN == 1}" class="fa-regular fa-heart" th:data-post-id="${postbookmark.id}"></i>
+                                                    </span>
+                                                                                            </div>
+                                                                                            <div class="feed_footer_commentBox def_size">
+                                                                                                <span><i class="fa-regular fa-comment fa-lg" th:data-post-id = "${postbookmark.id}"></i></span>
+                                                                                            </div>
+                                                                                            <div class="feed_footer_messageBox def_size">
+                                                                                                <span><i class="fa-regular fa-paper-plane fa-lg" th:data-post-id = "${postbookmark.id}"></i></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="feed_footer_bookmarkBox">
+                                                                                            <div class="feed_footer_bookmark def_size">
+                                                                                                <span><i th:class="${postbookmark.bookmarkYN > 0} ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" th:data-post-id = "${postbookmark.id}"></i></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_likeNumCont">
+                                                                                        <div class="feed_footer_likeNumBox">
+                                                    <span class="feed_footer_likeNumText">
+                                                       좋아요
+                                                       <span class="feed_footer_likeNum" th:id="'likeCount2_' + ${postbookmark.id}" th:text="${#lists.size(postbookmark.likes)}"></span>만개
+                                                    </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_ownerCommentBox">
+                                                                                        <div class="feed_footer_ownerNameBox">
+                                                    <span class="feed_footer_ownerName"  th:text="${postbookmark.Name}">
+                                                    </span>
+                                                                                        </div>
+                                                                                        <div class="feed_footer_ownerTextBox">
+                                                    <span class="feed_footer_ownerText"  th:text="${postbookmark.content}">
+                                                    </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_commentNumCont">
+                                                                                        <div class="feed_footer_commentNumBox">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="feed_footer_inputCont">
+                                                                                        <form>
+                                                                                            <div class="feed_footer_inputBox">
+                                                                                                <div class="feed_footer_postCommentBox">
+                                                                                                    <input type="text" class="feed_footer_postComment2" placeholder="댓글 달기..">
+                                                                                                    <input type="hidden" id="postId" th:value="${postbookmark.id}">
+                                                                                                </div>
+                                                                                                <div class="feed_footer_emoteButton">
+                                                                           <span>
+                                                                              <i class="fa-regular fa-face-smile">
+                                                                              </i>
+                                                                              <div class="emoticonbox2">
+                                                                                    <div class="emoticon" th:text="${emoticons}" th:each="emoticons : ${emoticon}"></div>
+                                                                              </div>
+                                                                           </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </article>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+<script src="/js/profile.js"></script>
+<script type="text/javascript" src="/js/followers.js"></script>
+</body>
+</html>
